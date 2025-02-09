@@ -1,0 +1,185 @@
+---
+title: "ER Diagrams"
+format: html
+author: "Paula Gearon"
+url: https://github.com/quoll/608_ERModels
+toc: true
+---
+# ER Diagrams
+## Library
+### Crow's Foot
+```{mermaid}
+---
+title: Library Crow's Foot Diagram
+---
+erDiagram
+    Loan }o--|| Book : lends
+    Loan }o--|| Member : toMember
+    Loan {
+        int loadID PK
+        date loanDate
+        date returnDate
+    }
+    Book {
+        int bookID PK
+        string title
+        string author
+    }
+    Member {
+        int memberID PK
+        string name_first
+        string name_last
+        date membershipDate
+    }
+```
+### Library Chen Diagram
+```{dot}
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; Loan; Book; Member;
+    node [shape=ellipse]; {node [label="name"] name0;}
+		{node [label="*bookID"] bookID;}  title; author; {node [label="*loanID"] loanID;} loanDate; returnDate; {node [label="*memberID"] memberID;}; membershipDate; first; last
+    node [shape=diamond,style=filled,color=lightgrey]; lends; toMember;
+
+    bookID -- Book;
+    title -- Book;
+    author -- Book;
+    Book -- lends [label="1",len=1.00];
+    lends -- Loan;
+    lends -- Loan [label="M",len=1.00];
+    Loan -- loanID;
+    Loan -- loanDate;
+    Loan -- returnDate;
+    Loan -- toMember;
+    Loan -- toMember [label="M",len=1.00];
+    toMember -- Member  [label="1",len=1.00];
+    Member -- memberID;
+    Member -- name0;
+    Member -- membershipDate;
+    name0 -- first;
+    name0 -- last
+}
+```
+
+## Hotel
+```{mermaid}
+---
+title: Hotel Crow's Foot Diagram
+---
+erDiagram
+    Booking }o--|| Room : forRoom
+    Booking }|--|| Guest : forGuest
+    Booking {
+        int bookingID PK
+        date checkIn
+        date checkOut
+    }
+    Room {
+        int roomNumber PK
+        string type
+        numeric rate
+    }
+    Guest {
+        int guestID PK
+        string name_first
+        string name_last
+        string address_line1
+        string address_line2
+        string address_city
+        string address_state
+        string address_zip
+        string address_phone
+    }
+```
+### Hotel Chen Diagram
+```{dot}
+graph ER {
+	node [shape=box]; Booking; Room; Guest;
+    node [shape=ellipse]; {node [label="name"] name0;}
+		{node [label="*roomNumber"] roomNumber;} {node [label="*bookingID"] bookingID;} {node [label="*guestID"] guestID;} type; rate; checkIn; checkOut; first; last; address; line1; line2; city; state; zip; phone;
+    node [shape=diamond,style=filled,color=lightgrey]; forRoom; forGuest;
+
+    roomNumber -- Room;
+    type -- Room;
+    rate -- Room;
+    Room -- forRoom [label="1",len=1.00];
+    forRoom -- Booking;
+    forRoom -- Booking [label="M",len=1.00];
+    Booking -- bookingID;
+    Booking -- checkIn;
+    Booking -- checkOut;
+    Booking -- forGuest;
+    Booking -- forGuest [label="M",len=1.00];
+    forGuest -- Guest;
+    forGuest -- Guest  [label="1",len=1.00];
+    Guest -- guestID;
+    Guest -- name0;
+    name0 -- first;
+    name0 -- last;
+    Guest -- address;
+    address -- line1;
+    address -- line2;
+    address -- city;
+    address -- state;
+    address -- zip;
+    address -- phone;
+}
+```
+
+## School
+```{mermaid}
+---
+title: School Crow's Foot Diagram
+---
+erDiagram
+    Enrollment }|--|| Course : course
+    Enrollment }o--|| Student : student
+    Enrollment {
+        int enrollmentID PK
+        date date
+        int grade
+    }
+    Course {
+        int courseID PK
+        string title
+        int credits
+    }
+    Student {
+        int studentID PK
+        string name_first
+        string name_last
+        date enrollmentDate
+    }
+```
+### School Chen Diagram
+```{dot}
+graph ER {
+	node [shape=box]; Enrollment; Course; Student;
+    node [shape=ellipse]; {node [label="name"] name0;}
+		{node [label="*courseID"] courseID;} {node [label="*enrollmentID"] enrollmentID;} {node [label="*studentID"] studentID;} title; credits; date; grade; first; last; enrollmentDate;
+    node [shape=diamond,style=filled,color=lightgrey]; {node [label="course"] course0;}; {node [label="student"] student0;};
+
+    courseID -- Course;
+    title -- Course;
+    credits -- Course;
+    Course -- course0;
+    Course -- course0 [label="1",len=1.00];
+    course0 -- Enrollment;
+    course0 -- Enrollment [label="M",len=1.00];
+    Enrollment -- enrollmentID;
+    Enrollment -- date;
+    Enrollment -- grade;
+    Enrollment -- student0;
+    Enrollment -- student0 [label="M",len=1.00];
+    student0 -- Student;
+    student0 -- Student  [label="1",len=1.00];
+    Student -- studentID;
+    Student -- name0;
+    name0 -- first;
+    name0 -- last;
+    Student -- enrollmentDate;
+}
+```
