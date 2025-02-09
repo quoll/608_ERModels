@@ -1,13 +1,14 @@
 ---
-title: "ER Diagrams"
+title: "HW2 - Entity Relation Models"
 format: html
 author: "Paula Gearon"
-url: https://github.com/quoll/608_ERModels
+url: "https://github.com/quoll/608_ERModels"
+doc: "https://quoll.github.io/608_ERModels/report.html"
 toc: true
 ---
 # ER Diagrams
-## Library
-### Crow's Foot
+## Library Design
+### Library Crow's Foot
 ```{mermaid}
 ---
 title: Library Crow's Foot Diagram
@@ -64,7 +65,7 @@ graph ER {
 }
 ```
 
-## Hotel
+## Hotel Design
 ```{mermaid}
 ---
 title: Hotel Crow's Foot Diagram
@@ -129,7 +130,7 @@ graph ER {
 }
 ```
 
-## School
+## School Design
 ```{mermaid}
 ---
 title: School Crow's Foot Diagram
