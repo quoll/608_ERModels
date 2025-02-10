@@ -2,15 +2,12 @@
 title: "HW2 - Entity Relation Models"
 format: html
 author: "Paula Gearon"
-url: "https://quoll.github.io/608_ERModels/report.html"
-github: "https://github.com/quoll/608_ERModels/report.qmd"
-indexreport: "https://quoll.github.io/608_ERModels/"
+url: "https://quoll.github.io/608_ERModels/"
+github: "https://github.com/quoll/608_ERModels/index.qmd"
 toc: true
 ---
 # ER Diagrams
 This report is available on [Github]({{< meta url >}}), along with the [document source]({{< meta github >}}).
-
-A cleaner version of this report with embedded images is [also available]({{< meta indexreport >}}).
 
 ## Common Design Principles
 Almost every entity in the following systems includes an `ID` attribute. Since no other constraints are mentioned, these are presumed to be integer types, which also makes them efficient to use as the primary key for their entity. The Primary Key also implies `NOT NULL` in schemas, so this is not included for those attributes.
@@ -21,25 +18,12 @@ Most attributes are required, and will be `NOT NULL`. When an attribute can be `
 
 String attributes are generally set to `VARCHAR(64)` as this covers most names. The exceptions are described.
 
-## Mermaid and Dot Limitations
-The requirements of this project specify using Mermaid for rendering Crow's Foot ER diagrams, and Graphviz for Chen ER diagrams.
-
-## Primary Keys
-Primary keys are typically indicated on both diagram formats by underlining the attribute(s), but this is not available in Mermaid or Graphviz.
-
-Mermaid can indicate a Primary key with a `PK` annotation. However, when this option is used, it requires that an attribute be fully described, including the domain of the attribute. The domain is not typically shown in Crow's Foot notation, but it has been included here so that the primary key annotation can be included.
-
-To indicate a Primary Key in Graphviz, an asterisk character (*) is added to the attribute name.
-
 ## Composite Attributes
 Composite attributes such as `name` are shown on a Crow's Foot diagram by showing the parts of the attribute in parentheses after the primary attribute name. For instance the `name` attribute is shown as: `name(first,last)`
 
-This syntax is not legal in Mermaid diagrams. To overcome this, the parts of composite attributes are displayed separately, separated from the primary attribute name with an underscore character (_): `name_first`, `name_last`. This is continued in the schemas.
+This syntax is not legal in Mermaid diagrams, which was required in the main report document. To overcome this, the parts of composite attributes are displayed separately, separated from the primary attribute name with an underscore character (_): `name_first`, `name_last`. This is continued in the schemas.
 
 Because underscores are used to indicate composite attributes, identifiers made of multiple words use `camelCase` to join the words into a single identifier.
-
-## Total Participation
-Total participation is shown in Chen digrams as a double line. Unfortunately, Graphviz does not provide a double-line option. This document uses a pair of lines between nodes in the Graphviz Chen diagrams to approximate a total participation. This is not ideal, but it provides some of the desired information.
 
 ## Schema
 The precise form of the Schema has not been described beyond the description:
@@ -75,64 +59,11 @@ A `Loan` only exists in the context of lending a single `Book` to a single `Memb
 Conversely, both `Book` and `Member` entities may exist without having participated in a loan (e.g. a `Book` has just been purchased, or a `Member` has just joined). Therefore, their participation in a loan relationship is optional. Also, both `Book` and `Member` may be involved in multiple loans, giving them multiple cardinality in these relationships. So both have a "zero-or-many" relationship to `Loan`.
 
 ### Library Crow's Foot
-```{mermaid}
----
-title: Library Crow's Foot Diagram
----
-erDiagram
-    Loan }o--|| Book : lends
-    Loan }o--|| Member : toMember
-    Loan {
-        int loanID PK
-        date loanDate
-        date returnDate
-    }
-    Book {
-        int bookID PK
-        string title
-        string author
-    }
-    Member {
-        int memberID PK
-        string name_first
-        string name_last
-        date membershipDate
-    }
-```
-See [Library Crow's Foot Diagram](https://quoll.github.io/608_ERModels/diagrams/LibraryCF.png) for a more a more standardized view.
+
+![Library Crow's Foot Diagram](https://quoll.github.io/608_ERModels/diagrams/LibraryCF.png)
 
 ### Library Chen Diagram
-```{dot}
-graph ER {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	layout=neato
-	node [shape=box]; Loan; Book; Member;
-    node [shape=ellipse]; {node [label="name"] name0;}
-		{node [label="*bookID"] bookID;}  title; author; {node [label="*loanID"] loanID;} loanDate; returnDate; {node [label="*memberID"] memberID;}; membershipDate; first; last
-    node [shape=diamond,style=filled,color=lightgrey]; lends; toMember;
-
-    bookID -- Book;
-    title -- Book;
-    author -- Book;
-    Book -- lends [label="1",len=1.00];
-    lends -- Loan;
-    lends -- Loan [label="M",len=1.00];
-    Loan -- loanID;
-    Loan -- loanDate;
-    Loan -- returnDate;
-    Loan -- toMember;
-    Loan -- toMember [label="M",len=1.00];
-    toMember -- Member  [label="1",len=1.00];
-    Member -- memberID;
-    Member -- name0;
-    Member -- membershipDate;
-    name0 -- first;
-    name0 -- last
-}
-```
-See [Library Chen Diagram](https://quoll.github.io/608_ERModels/diagrams/LibraryChen.png) for a more a more standardized view.
+![Library Chen Diagram](https://quoll.github.io/608_ERModels/diagrams/LibraryChen.png)
 
 ### Schema
 * `Loan(`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`
@@ -181,72 +112,10 @@ A `Room` may be booked multiple times, though it is feasible that a `Room` has n
 A `Guest` may stay multiple times at the hotel, however, they will not be entered into the database until they make their first booking. Consequently, a `Guest` is mandatory in the `forGuest` relationship, and the cardinality is "one-or-many".
 
 ### Hotel Crow's Foot
-```{mermaid}
----
-title: Hotel Crow's Foot Diagram
----
-erDiagram
-    Booking }o--|| Room : forRoom
-    Booking }|--|| Guest : forGuest
-    Booking {
-        int bookingID PK
-        date checkIn
-        date checkOut
-    }
-    Room {
-        int roomNumber PK
-        string type
-        numeric rate
-    }
-    Guest {
-        int guestID PK
-        string name_first
-        string name_last
-        string address_line1
-        string address_line2
-        string address_city
-        string address_state
-        string address_zip
-        string address_phone
-    }
-```
-See [Hotel Crow's Foot Diagram](https://quoll.github.io/608_ERModels/diagrams/HotelCF.png) for a more a more standardized view.
+![Hotel Crow's Foot Diagram](https://quoll.github.io/608_ERModels/diagrams/HotelCF.png)
 
 ### Hotel Chen Diagram
-```{dot}
-graph ER {
-	node [shape=box]; Booking; Room; Guest;
-    node [shape=ellipse]; {node [label="name"] name0;}
-		{node [label="*roomNumber"] roomNumber;} {node [label="*bookingID"] bookingID;} {node [label="*guestID"] guestID;} type; rate; checkIn; checkOut; first; last; address; line1; line2; city; state; zip; phone;
-    node [shape=diamond,style=filled,color=lightgrey]; forRoom; forGuest;
-
-    roomNumber -- Room;
-    type -- Room;
-    rate -- Room;
-    Room -- forRoom [label="1",len=1.00];
-    forRoom -- Booking;
-    forRoom -- Booking [label="M",len=1.00];
-    Booking -- bookingID;
-    Booking -- checkIn;
-    Booking -- checkOut;
-    Booking -- forGuest;
-    Booking -- forGuest [label="M",len=1.00];
-    forGuest -- Guest;
-    forGuest -- Guest  [label="1",len=1.00];
-    Guest -- guestID;
-    Guest -- name0;
-    name0 -- first;
-    name0 -- last;
-    Guest -- address;
-    address -- line1;
-    address -- line2;
-    address -- city;
-    address -- state;
-    address -- zip;
-    address -- phone;
-}
-```
-See [Hotel Chen Diagram](https://quoll.github.io/608_ERModels/diagrams/HotelChen.png) for a more a more standardized view.
+![Hotel Chen Diagram](https://quoll.github.io/608_ERModels/diagrams/HotelChen.png)
 
 ### Schema
 * `Booking(`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`
@@ -292,62 +161,10 @@ A `Student` may attend a university without having done any courses yet (particu
 A `Course` is presumed to only exist if students sign up to it, since a course without students will be deleted (perhaps a course can be considered to exist without enrollments for the short time it is offered before enrollments start for the semester, but this choice has not been taken here). This choice means that the participation of a `Course` in an `Enrollment` relationship is mandatory, and the cardinality of the reference to the `Enrollment` is "one-or-many".
 
 ### School Crow's Foot Diagram
-```{mermaid}
----
-title: School Crow's Foot Diagram
----
-erDiagram
-    Enrollment }|--|| Course : course
-    Enrollment }o--|| Student : student
-    Enrollment {
-        int enrollmentID PK
-        date date
-        int grade
-    }
-    Course {
-        int courseID PK
-        string title
-        int credits
-    }
-    Student {
-        int studentID PK
-        string name_first
-        string name_last
-        date enrollmentDate
-    }
-```
-See [School Crow's Foot Diagram](https://quoll.github.io/608_ERModels/diagrams/SchoolCF.png) for a more a more standardized view.
+![School Crow's Foot Diagram](https://quoll.github.io/608_ERModels/diagrams/SchoolCF.png)
 
 ### School Chen Diagram
-```{dot}
-graph ER {
-	node [shape=box]; Enrollment; Course; Student;
-    node [shape=ellipse]; {node [label="name"] name0;}
-		{node [label="*courseID"] courseID;} {node [label="*enrollmentID"] enrollmentID;} {node [label="*studentID"] studentID;} title; credits; date; grade; first; last; enrollmentDate;
-    node [shape=diamond,style=filled,color=lightgrey]; {node [label="course"] course0;}; {node [label="student"] student0;};
-
-    courseID -- Course;
-    title -- Course;
-    credits -- Course;
-    Course -- course0;
-    Course -- course0 [label="1",len=1.00];
-    course0 -- Enrollment;
-    course0 -- Enrollment [label="M",len=1.00];
-    Enrollment -- enrollmentID;
-    Enrollment -- date;
-    Enrollment -- grade;
-    Enrollment -- student0;
-    Enrollment -- student0 [label="M",len=1.00];
-    student0 -- Student;
-    student0 -- Student  [label="1",len=1.00];
-    Student -- studentID;
-    Student -- name0;
-    name0 -- first;
-    name0 -- last;
-    Student -- enrollmentDate;
-}
-```
-See [School Chen Diagram](https://quoll.github.io/608_ERModels/diagrams/SchoolChen.png) for a more a more standardized view.
+![School Chen Diagram](https://quoll.github.io/608_ERModels/diagrams/SchoolChen.png)
 
 ### Schema
 * `Enrollment(`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`
