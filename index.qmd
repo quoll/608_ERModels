@@ -3,11 +3,11 @@ title: "HW2 - Entity Relation Models"
 format: html
 author: "Paula Gearon"
 url: "https://quoll.github.io/608_ERModels/"
-github: "https://github.com/quoll/608_ERModels/index.qmd"
+github: "https://github.com/quoll/608_ERModels/"
 toc: true
 ---
 # ER Diagrams
-This report is available on [Github]({{< meta url >}}), along with the [document source]({{< meta github >}}).
+This report is available on [Github]({{< meta url >}}), along with the [sources]({{< meta github >}}).
 
 ## Common Design Principles
 Almost every entity in the following systems includes an `ID` attribute. Since no other constraints are mentioned, these are presumed to be integer types, which also makes them efficient to use as the primary key for their entity. The Primary Key also implies `NOT NULL` in schemas, so this is not included for those attributes.

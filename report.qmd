@@ -3,12 +3,12 @@ title: "HW2 - Entity Relation Models"
 format: html
 author: "Paula Gearon"
 url: "https://quoll.github.io/608_ERModels/report.html"
-github: "https://github.com/quoll/608_ERModels/report.qmd"
+github: "https://github.com/quoll/608_ERModels/"
 indexreport: "https://quoll.github.io/608_ERModels/"
 toc: true
 ---
 # ER Diagrams
-This report is available on [Github]({{< meta url >}}), along with the [document source]({{< meta github >}}).
+This report is available on [Github]({{< meta url >}}), along with the [sources]({{< meta github >}}).
 
 A cleaner version of this report with embedded images is [also available]({{< meta indexreport >}}).
 
