@@ -2,7 +2,7 @@
 This project implements the design for HW2 for CMSC 608.
 
 ## Report
-The submissible report is in the file [`report.html`](https://quoll.github.io/608_ERModels/report.html). This was build from the `report.qmd` file using Quatro.
+The submissible report is in the file [`report.html`](https://quoll.github.io/608_ERModels/report.html). This was build from the `report.qmd` file using [Quarto](https://quarto.org/).
 
 The requirements of this assignment included using [Mermaid](https://mermaid.js.org/) for the Crow's Foot ER digrams, and [Graphviz](https://graphviz.org/) for the Chen ER diagrams. These are very limited in the types of diagrams they can produce, with substandard results. During class, the students were generally invited to use any drawing package, so a separate version of the report is also included, with embedded images (generated using [draw.io](https://draw.io)). The source for this is in the file `index.qmd`, and the rendered HTML is available [here](https://quoll.github.io/608_ERModels/). The content of the reports is the same, but the images are different.
 
@@ -22,6 +22,17 @@ Both Crow's Foot and Chen ER diagrams are presented for each system. The main re
 
 ### Schema
 At the end of each section, a schema is presented, using a syntax similar to SQL, to show how the ER model could be implemented in a relational database. This is not a complete schema, but rather a starting point for a database designer. The schema requirements of the assignment reference material from the course, but as of submission this has not been available. To compensate, a common schema syntax has been adopted.
+
+## Outcome
+As this project is entirely about design, there are no runnable components, beyond the report generation by Quarto.
+
+## Tools
+All of the tools used in this project are open source, and are available for free. They are:
+
+* [Quarto](https://quarto.org/). This is a markdown-based document generation tool, which can be used to generate HTML, PDF, and other formats. It is particularly useful for generating reports that include code, as it can run the code and include the output in the report.
+* [Mermaid](https://mermaid.js.org/). This is a tool for generating diagrams from text descriptions. It is particularly useful for generating ER diagrams, as it can generate Crow's Foot diagrams, automating the layout for a given structure.
+* [Graphviz](https://graphviz.org/). This is a tool for generating diagrams from text descriptions. It can render `dot` graph files, including formats for generating Chen ER diagrams, automating the layout of the graph.
+* [draw.io](https://draw.io). This is a general drawing tool that can be used to generate a wide variety of diagrams, using web standards. It is significantly better at generating ER diagrams than the previous tools, though it requires manual drawing without any understanding of the roles of of the image elements.
 
 ## License
 This project is licensed under the Create Commons CC0 1.0 Universal License - see the [LICENSE](LICENSE) file for details.
