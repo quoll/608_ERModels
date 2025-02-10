@@ -1,6 +1,8 @@
 # 608_ERModels
 This project implements the design for HW2 for CMSC 608.
 
+Rendered pages for this project are available at [https://quoll.github.io/608_ERModels/](https://quoll.github.io/608_ERModels/).
+
 ## Report
 The submissible report is in the file [`report.html`](https://quoll.github.io/608_ERModels/report.html). This was build from the `report.qmd` file using [Quarto](https://quarto.org/).
 
